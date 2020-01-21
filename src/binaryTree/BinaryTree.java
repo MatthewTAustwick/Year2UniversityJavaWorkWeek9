@@ -170,9 +170,9 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
     }
 
     public static void main(String[] args) throws EmptyTreeException { //Basic code to test if it works or not.
-        BinaryTree<Integer> btree = new BinaryTree<>(2,new BinaryTree<>(1), new BinaryTree<>(3));
-        btree.getLeft().setLeft(new BinaryTree<>(0));
-        btree.getRight().setRight(new BinaryTree<>(4));
+        BinaryTree<Integer> btree = new BinaryTree<>(2,new BinaryTree<>(1), new BinaryTree<>(3)); //Creates a new binary tree with a root value of 2, a left binary tree with a root value of 1 and a right binary tree with a root value of 3
+        btree.getLeft().setLeft(new BinaryTree<>(0)); //Creates a new left subtree to the root's left subtree with a root value of 0
+        btree.getRight().setRight(new BinaryTree<>(4)); //Creates a new right subtree to the root's right subtree with a root value of 4
         System.out.println(btree.traverse());
         System.out.println(btree.contains(0));
         System.out.println(btree.contains(5));
