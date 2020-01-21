@@ -27,7 +27,8 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
      * The root node of this tree.
      */
     private TreeNode<T> root;
-    ArrayList<T> traversalList = new ArrayList<>();
+    ArrayList<T> traversalList = new ArrayList<>(); //A simple ArrayList which is used to store the values of the nodes
+                                                    //which the tree traverses on its way through.
 
 
     /**
@@ -72,13 +73,13 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
      */
     public void insert(T value) throws EmptyTreeException {
         if (isEmpty()){
-            root = new TreeNode<T>(value);
+            root = new TreeNode<T>(value); //If the tree is empty, then the tree sets the value as the root node (with its appropriate value).
         }
-        else if (value.compareTo(getValue()) < 0){
+        else if (value.compareTo(getValue()) < 0){ //If the value is less than the current value the code is looking at, insert it to the left
             getLeft().insert(value);
         }
         else{
-            getRight().insert(value);
+            getRight().insert(value); //Otherwise just insert it to the right instead.
         }
     }
 
@@ -88,7 +89,7 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
      */
     public T getValue() throws EmptyTreeException {
         if (isEmpty()){
-            throw new EmptyTreeException("The tree you are trying to access is currently empty");
+            throw new EmptyTreeException("The tree you are trying to access is currently empty"); //If you try to get the value of an empty tree, then the code just says that you cannot do that as it could cause possible issues.
         }
         return root.getValue();
         // Note: it might make sense to define getValue() to throw a (custom) exception if an attempt
@@ -146,10 +147,10 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
      * @return true iff the value is in the tree.
      */
     public boolean contains(T value) {
-        if (!isEmpty()){
-            if (root.getValue().equals(value)) return true;
-            else if (getLeft().contains(value)) return true;
-            else if (getRight().contains(value)) return true;
+        if (!isEmpty()){ //The below code only happens if the tree is empty.
+            if (root.getValue().equals(value)) return true; //If the value is in the node, return true
+            else if (getLeft().contains(value)) return true; //If the value is somewhere in the left tree, return true
+            else if (getRight().contains(value)) return true; //If the value is somehwere in the right tree, return true
         }
         return false;
     }
@@ -160,15 +161,15 @@ public class BinaryTree<T extends Comparable<? super T>> implements BTree<T> {
      */
     public List<T> traverse() throws EmptyTreeException {
 
-        if(!isEmpty()){
-            traversalList.add(root.getValue());
-            traversalList.addAll(root.getLeft().traverse());
-            traversalList.addAll(root.getRight().traverse());
+        if(!isEmpty()){ //If the tree isn't empty
+            traversalList.add(root.getValue()); //Add the route to the traversal list
+            traversalList.addAll(root.getLeft().traverse()); //Add all of the left subtrees to the traversal list
+            traversalList.addAll(root.getRight().traverse()); //Add all the right subtrees to the traversal list
         }
         return traversalList;
     }
 
-    public static void main(String[] args) throws EmptyTreeException {
+    public static void main(String[] args) throws EmptyTreeException { //Basic code to test if it works or not.
         BinaryTree<Integer> btree = new BinaryTree<>(2,new BinaryTree<>(1), new BinaryTree<>(3));
         btree.getLeft().setLeft(new BinaryTree<>(0));
         btree.getRight().setRight(new BinaryTree<>(4));
